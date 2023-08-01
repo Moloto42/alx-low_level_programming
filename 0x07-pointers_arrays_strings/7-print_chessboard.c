@@ -2,14 +2,14 @@
 #include <stdio.h>
 
 /**
- * print_chessboard - Entry point
- * @a: array
+ * print_chessboard - prints the cheesboard
+ * @a: pointer to pieces to print
  *
- * Return: Always 0 (Success)
+ * Return: void
  */
 void print_chessboard(char (*a)[8])
 {
-	int i , j
+	int i , j;
 
 	for (i = 0; i < 8; i++)
 	{
@@ -20,4 +20,3 @@ void print_chessboard(char (*a)[8])
 		putchar('\n');
 	}
 }
-
