@@ -2,35 +2,27 @@
 #include <stdlib.h>
 
 /**
- * read_textfile - Read a text file and print its contents to STDOUT.
- * @file_path: The path to the text file to be read.
- * @num_chars: The number of characters to read and print.
- * Return: The actual number of bytes read and printed on success,
- *         0 when the function fails or file_path is NULL.
+ * read_textfile- Read text file print to STDOUT.
+ * @filename: text file being read
+ * @letters: number of letters to be read
+ * Return: w- actual number of bytes read and printed
+ *        0 when function fails or filename is NULL.
  */
-ssize_t read_textfile(const char *file_path, size_t num_chars)
+ssize_t read_textfile(const char *filename, size_t letters)
 {
-    char *buffer;
-    ssize_t file_descriptor;
-    ssize_t bytes_read;
-    ssize_t bytes_written;
+	char *buf;
+	ssize_t fd;
+	ssize_t w;
+	ssize_t t;
 
-    file_descriptor = open(file_path, O_RDONLY);
-    if (file_descriptor == -1)
-        return (0);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	buf = malloc(sizeof(char) * letters);
+	t = read(fd, buf, letters);
+	w = write(STDOUT_FILENO, buf, t);
 
-    buffer = malloc(sizeof(char) * num_chars);
-    if (!buffer)
-    {
-        close(file_descriptor);
-        return (0);
-    }
-
-    bytes_read = read(file_descriptor, buffer, num_chars);
-    bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
-
-    free(buffer);
-    close(file_descriptor);
-    
-    return (bytes_written);
+	free(buf);
+	close(fd);
+	return (w);
 }
